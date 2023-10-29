@@ -20,4 +20,4 @@ setTimeout(() => {
         modal.remove()
     }
     modal.className = 'modal'
-}, 100)
+}, 10)

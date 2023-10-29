@@ -114,6 +114,17 @@ body {
   opacity: 0;
   animation: modal_anim 1s forwards;
 }
+.label_error {
+  width: auto;
+  height: 30px;
+  padding: 1rem;
+  color: black;
+  margin-bottom: 20px;
+  background: #00ffd5;
+  border: solid red 3px;
+  border-radius: $br;
+  visibility: hidden;
+}
 .glow-on-hover:before {
   content: '';
   background: $gradient;
@@ -130,8 +141,6 @@ body {
   transition: opacity .3s ease-in-out;
   border-radius: 10px;
 }
-
-
 .glow-on-hover:after {
   z-index: -1;
   content: '';

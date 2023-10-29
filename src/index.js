@@ -1,6 +1,8 @@
-import './styles/main.scss'
-import {send} from './ajax'
-import {modal} from './modal'
+import "./styles/main.scss"
+import {send} from "./ajax"
+import {modal} from "./modal"
+import Inputmask from "inputmask"
+import {validate} from "./validate"
 
 const root = document.querySelector('#root')
 
@@ -23,16 +25,27 @@ email.type = 'email'
 email.placeholder = 'Ваш E-mail'
 const phone = create('input', main)
 phone.placeholder = 'Ваш телефон'
+const im = new Inputmask("+999 999999999");
+im.mask(phone);
 const msg = create('textarea', main)
 msg.placeholder = 'Ваше сообщение'
+const label_error = create('div', main)
+label_error.className = 'label_error'
 const btns = create('div', container)
 btns.className = 'btns'
 const btn_send = create('button', btns)
 btn_send.innerHTML = 'Отправить'
 btn_send.className = 'glow-on-hover'
-
-btn_send.onclick = (e) => {
-    //send(msg.innerHTML, 'http://localhost','POST')
+btn_send.onclick = () => {
+    const valid = validate([name, email, phone, msg])
+    if (valid.code !== 0) {
+        label_error.style.visibility = 'visible'
+        label_error.innerHTML = valid.msg
+        return
+    }
+    label_error.innerHTML = ''
+    label_error.style.visibility = 'hidden'
+    send(msg.innerHTML, 'localhost:9090/api/registration/','POST')
 
 }
 const btn_modal = create('button', btns)
@@ -43,4 +56,9 @@ btn_modal.onclick = (e) => {
     container.className = 'blur'
     root.append(modal)
 }
-
+export const clear_inps = () => {
+    name.value = ''
+    email.value = ''
+    phone.value = ''
+    msg.value = ''
+}
