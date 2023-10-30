@@ -1,6 +1,5 @@
 export const validate = (elements) => {
     for (let i = 0; i<elements.length; i++) {
-        console.log(elements[i].value)
         if (elements[i].value.trim() === '') {
             return {"code": 1, "msg": "Все поля обязательны к заполнению"}
         }

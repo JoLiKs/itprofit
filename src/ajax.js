@@ -1,8 +1,9 @@
 import {clear_inps} from './index'
 
-export const send = (msg, url, method) => {
+export const send = (data, url, method) => {
     const xhr = new XMLHttpRequest();
     xhr.open(method, 'http://'+url, true);
+
     xhr.onreadystatechange = () => {
 
         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200 && JSON.parse(xhr.response).status === "success") {
@@ -13,5 +14,5 @@ export const send = (msg, url, method) => {
             console.log(JSON.parse(xhr.response).message)
         }
     };
-    xhr.send();
+    xhr.send(`name=${data[0]}&email=${data[1]}&phone=${data[2]}&msg=${data[3]}`);
 }
